@@ -349,7 +349,7 @@ def initBases():
             bc += 1
 
 #def Exit():
-    
+
 
 init()
 pgzrun.go()
