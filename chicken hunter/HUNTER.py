@@ -15,7 +15,7 @@ def draw():  # Pygame Zero draw function
         drawCentreText(
             "CHICKEN HUNTER\n\n\nType your name then\npress Enter to start")
         screen.draw.text(player.name, center=(400, 500), owidth=0.5, ocolor=(
-            255, 0, 0), color=(0, 64, 255), fontsize=60)
+            139,69,19), color=(255,127,36), fontsize=50)
     if gameStatus == 1:  # playing the game
         player.image = player.images[math.floor(player.status/6)]
         player.draw()
@@ -25,25 +25,25 @@ def draw():  # Pygame Zero draw function
         drawAliens()
         #drawBases()
         screen.draw.text(str(score), topright=(780, 10), owidth=0.5, ocolor=(
-            255, 255, 255), color=(0, 64, 255), fontsize=60)
+            139,69,19), color=(255,127,36), fontsize=60)
         screen.draw.text("Stage " + str(level), midtop=(400, 10), owidth=0.5,
-                         ocolor=(255, 255, 255), color=(0, 64, 255), fontsize=60)
+                         ocolor=(255,127,36), color=(139,69,19), fontsize=50)
         drawLives()
         if player.status >= 30:
             if player.lives > 0:
-                drawCentreText("YOU WERE HIT!\nPress Enter to re-spawn")
+                drawCentreText("YOU TAKE A DAMAGE!\nPress Enter to re-spawn")
             else:
-                drawCentreText("GAME OVER!\nPress Enter to continue")
+                drawCentreText("GAME OVER!\nPress Enter to restart")
         if len(aliens) == 0:
             drawCentreText(
-                "Stage CLEARED!\nPress Enter to go to the next Stage")
+                "Pass the Stage!\nPress Enter to go to the next Stage")
     if gameStatus == 2:  # game over show the leaderboard
         drawHighScore()
 
 
 def drawCentreText(t):
     screen.draw.text(t, center=(400, 300), owidth=0.5, ocolor=(
-        255, 255, 255), color=(255, 64, 0), fontsize=60)
+        	255,165,0), color=(	139,69,0), fontsize=50)
 
 
 def update():  # Pygame Zero update function
@@ -347,6 +347,8 @@ def initBases():
             bases[bc].collideLaser = collideLaser.__get__(bases[bc])
             bases[bc].height = 60
             bc += 1
+
+#def Exit():
 
 
 init()
