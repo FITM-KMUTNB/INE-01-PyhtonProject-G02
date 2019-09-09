@@ -26,7 +26,7 @@ def draw():  # Pygame Zero draw function
         #drawBases()
         screen.draw.text(str(score), topright=(780, 10), owidth=0.5, ocolor=(
             255, 255, 255), color=(0, 64, 255), fontsize=60)
-        screen.draw.text("LEVEL " + str(level), midtop=(400, 10), owidth=0.5,
+        screen.draw.text("Stage " + str(level), midtop=(400, 10), owidth=0.5,
                          ocolor=(255, 255, 255), color=(0, 64, 255), fontsize=60)
         drawLives()
         if player.status >= 30:
@@ -36,7 +36,7 @@ def draw():  # Pygame Zero draw function
                 drawCentreText("GAME OVER!\nPress Enter to continue")
         if len(aliens) == 0:
             drawCentreText(
-                "LEVEL CLEARED!\nPress Enter to go to the next level")
+                "Stage CLEARED!\nPress Enter to go to the next Stage")
     if gameStatus == 2:  # game over show the leaderboard
         drawHighScore()
 
