@@ -348,6 +348,7 @@ def initBases():
             bases[bc].height = 60
             bc += 1
 
+#def Exit():
 
 init()
 pgzrun.go()
