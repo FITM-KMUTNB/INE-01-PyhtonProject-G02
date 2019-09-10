@@ -170,6 +170,7 @@ def checkKeys():
             lasers[len(lasers)-1].status = 0
             lasers[len(lasers)-1].type = 1
             score -= 100
+
     if keyboard.up:
         if player.y > 40:
             player.y -= 5
@@ -235,12 +236,26 @@ def checkPlayerLaserHit(l):
         if aliens[a].collidepoint((lasers[l].x, lasers[l].y)):
             lasers[l].status = 1
             aliens[a].status = 1
-            score += 1000
+            if level>=1:
+                score += 1000
+            if level>=5:
+                score += 1500
+            if level>=10:
+                score += 2000
+            if level >=15:
+                score += 2500
     if boss.active:
         if boss.collidepoint((lasers[l].x, lasers[l].y)):
             lasers[l].status = 1
             boss.active = 0
-            score += 5000
+            if level>=1:
+                score += 5000
+            if level>=5:
+                score += 6000
+            if level>=10:
+                score += 7000
+            if level >=15:
+                score += 800
 
 
 def updateAliens():
@@ -249,8 +264,8 @@ def updateAliens():
     if moveSequence < 10 or moveSequence > 30:
         movex = -15
     if moveSequence == 10 or moveSequence == 30:
-        movey = 40 + (5*level)
-        moveDelay -= 1
+        movey = 40 + (10*level)
+        moveDelay -= 0
     if moveSequence > 10 and moveSequence < 30:
         movex = 15
     for a in range(len(aliens)):
@@ -277,11 +292,11 @@ def updateAliens():
 def updateBoss():
     global boss, level, player, lasers
     if boss.active:
-        boss.y += (0.3*level)
+        boss.y += (1*level)
         if boss.direction == 0:
-            boss.x -= (1 * level)
+            boss.x -= (5 * level)
         else:
-            boss.x += (1 * level)
+            boss.x += (5 * level)
         if boss.x < 100:
             boss.direction = 1
         if boss.x > 700:
@@ -354,7 +369,17 @@ def collideLaser(self, other):
           #  bc += 1
 
 #def Exit():
-#def item():
+def item1():
+    global boss, level, player, lasers
+    if item.active:
+        item.y += (2)
+        if randint(0, 30) == 0:
+            item.append(Actor("item1", (item.x, item.y)))
+            item[len(item)-1].status = 0
+            item[len(item)-1].type = 0
+
+
+
 
 
 init()
