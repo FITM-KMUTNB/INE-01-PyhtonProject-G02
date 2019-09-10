@@ -177,11 +177,11 @@ def makeLaserActive():
     player.laserActive = 1
 
 
-def checkBases():
-    for b in range(len(bases)):
-        if l < len(bases):
-            if bases[b].height < 5:
-                del bases[b]
+#def checkBases():
+ #   for b in range(len(bases)):
+  #      if l < len(bases):
+   #         if bases[b].height < 5:
+     #           del bases[b]
 
 
 def updateLasers():
@@ -215,10 +215,10 @@ def checkLaserHit(l):
         sounds.explosion.play()
         player.status = 1
         lasers[l].status = 1
-    for b in range(len(bases)):
-        if bases[b].collideLaser(lasers[l]):
-            bases[b].height -= 10
-            lasers[l].status = 1
+    #for b in range(len(bases)):
+     #   if bases[b].collideLaser(lasers[l]):
+      #      bases[b].height -= 10
+       #     lasers[l].status = 1
 
 
 def checkPlayerLaserHit(l):
@@ -300,7 +300,7 @@ def updateBoss():
 def init():
     global lasers, score, player, moveSequence, moveCounter, moveDelay, level, boss
     initAliens()
-    initBases()
+    #initBases()
     moveCounter = moveSequence = player.status = score = player.laserCountdown = 0
     lasers = []
     moveDelay = 30
@@ -336,17 +336,17 @@ def collideLaser(self, other):
     )
 
 
-def initBases():
-    global bases
-    bases = []
-    bc = 0
-    for b in range(3):
-        for p in range(3):
-            bases.append(Actor("base1", midbottom=(150+(b*200)+(p*40), 520)))
-            bases[bc].drawClipped = drawClipped.__get__(bases[bc])
-            bases[bc].collideLaser = collideLaser.__get__(bases[bc])
-            bases[bc].height = 60
-            bc += 1
+#def initBases():
+    #global bases
+   # bases = []
+   # bc = 0
+    #for b in range(3):
+    #    for p in range(3):
+       #     bases.append(Actor("base1", midbottom=(150+(b*200)+(p*40), 520)))
+        #    bases[bc].drawClipped = drawClipped.__get__(bases[bc])
+         #   bases[bc].collideLaser = collideLaser.__get__(bases[bc])
+         #   bases[bc].height = 60
+          #  bc += 1
 
 #def Exit():
 
