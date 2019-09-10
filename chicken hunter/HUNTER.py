@@ -26,8 +26,8 @@ def draw():  # Pygame Zero draw function
         #drawBases()
         screen.draw.text(str(score), topright=(780, 10), owidth=0.5, ocolor=(
             139,69,19), color=(255,127,36), fontsize=60)
-        screen.draw.text("Stage " + str(level), midtop=(400, 10), owidth=0.5,
-                         ocolor=(255,127,36), color=(139,69,19), fontsize=50)
+        #screen.draw.text("Stage " + str(level), midtop=(400, 10), owidth=0.5,
+                         #ocolor=(255,127,36), color=(139,69,19), fontsize=50)
         drawLives()
         if player.status >= 30:
             if player.lives > 0:
@@ -170,7 +170,12 @@ def checkKeys():
             lasers[len(lasers)-1].status = 0
             lasers[len(lasers)-1].type = 1
             score -= 100
-
+    if keyboard.up:
+        if player.y > 40:
+            player.y -= 5
+    if keyboard.down:
+        if player.y <550:
+            player.y += 5
 
 def makeLaserActive():
     global player
@@ -349,6 +354,7 @@ def collideLaser(self, other):
           #  bc += 1
 
 #def Exit():
+#def item():
 
 
 init()
