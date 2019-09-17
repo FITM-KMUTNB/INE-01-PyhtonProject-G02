@@ -10,7 +10,7 @@ highScore = []
 
 
 def draw():  # Pygame Zero draw function
-    screen.blit('background', (0, 0))
+    screen.blit('background', (0, 0)) 
     if gameStatus == 0:  # display the title page
         drawCentreText(
             "CHICKEN HUNTER\n\n\n")#Type your name then\npress Enter to start")
@@ -43,7 +43,7 @@ def draw():  # Pygame Zero draw function
 
 def drawCentreText(t):
     screen.draw.text(t, center=(400, 300), owidth=0.5, ocolor=(
-        	255,165,0), color=(	139,69,0), fontsize=50,font=Algerian)
+        	255,165,0), color=(	139,69,0), fontsize=50,)
 
 
 def update():  # Pygame Zero update function
@@ -170,7 +170,7 @@ def checkKeys():
             lasers[len(lasers)-1].status = 0
             lasers[len(lasers)-1].type = 1
             score -= 100
-
+    
     if keyboard.up:
         if player.y > 40:
             player.y -= 5
@@ -309,7 +309,10 @@ def updateBoss():
             lasers.append(Actor("laser1", (boss.x, boss.y)))
             lasers[len(lasers)-1].status = 0
             lasers[len(lasers)-1].type = 0
-
+        if randint(0, 30) == 0:
+            item.append(Actor('item1',(boss.x,boss.y)))
+            item[len(item)-1].status +=1
+            item[len(item)-1].type +=1
     else:
         if randint(0, 800) == 0:
             boss.active = True
