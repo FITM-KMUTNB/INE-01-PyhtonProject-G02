@@ -13,7 +13,7 @@ def draw():  # Pygame Zero draw function
     screen.blit('background', (0, 0))
     if gameStatus == 0:  # display the title page
         drawCentreText(
-            "CHICKEN HUNTER\n\n\nType your name then\npress Enter to start")
+            "CHICKEN HUNTER\n\n\n")#Type your name then\npress Enter to start")
         screen.draw.text(player.name, center=(400, 500), owidth=0.5, ocolor=(
             139,69,19), color=(255,127,36), fontsize=50)
     if gameStatus == 1:  # playing the game
@@ -43,7 +43,7 @@ def draw():  # Pygame Zero draw function
 
 def drawCentreText(t):
     screen.draw.text(t, center=(400, 300), owidth=0.5, ocolor=(
-        	255,165,0), color=(	139,69,0), fontsize=50)
+        	255,165,0), color=(	139,69,0), fontsize=50,font=Algerian)
 
 
 def update():  # Pygame Zero update function
@@ -292,11 +292,11 @@ def updateAliens():
 def updateBoss():
     global boss, level, player, lasers
     if boss.active:
-        boss.y += (1*level)
+        boss.y += (0.3*level)
         if boss.direction == 0:
-            boss.x -= (5 * level)
+            boss.x -= (1 * level)
         else:
-            boss.x += (5 * level)
+            boss.x += (1 * level)
         if boss.x < 100:
             boss.direction = 1
         if boss.x > 700:
@@ -309,6 +309,7 @@ def updateBoss():
             lasers.append(Actor("laser1", (boss.x, boss.y)))
             lasers[len(lasers)-1].status = 0
             lasers[len(lasers)-1].type = 0
+
     else:
         if randint(0, 800) == 0:
             boss.active = True
