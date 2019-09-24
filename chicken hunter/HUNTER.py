@@ -9,9 +9,9 @@ boss = Actor("boss")
 #item1 = Actor("item1")
 gameStatus = 0
 highScore = []
-
-
+        
 def draw():  # Pygame Zero draw function
+    global updateBoss ,boss
     screen.blit('background', (0, 0)) 
     if gameStatus == 0:  # display the title page
         drawCentreText(
@@ -37,7 +37,7 @@ def draw():  # Pygame Zero draw function
                 drawCentreText("YOU TAKE A DAMAGE!\nPress Enter to re-spawn")
             else:
                 drawCentreText("GAME OVER!\nPress Enter to restart")
-        if len(aliens) == 0:
+        if boss.y >500:
             drawCentreText(
                 "Pass the Stage!\nPress Enter to go to the next Stage")
     if gameStatus == 2:  # game over show the leaderboard
@@ -50,7 +50,7 @@ def drawCentreText(t):
 
 
 def update():  # Pygame Zero update function
-    global moveCounter, player, gameStatus, lasers, level, boss
+    global moveCounter, player, gameStatus, lasers, level, boss,aliens,updateBoss
     if gameStatus == 0:
         if keyboard.RETURN and player.name != "":
             gameStatus = 1
@@ -73,7 +73,7 @@ def update():  # Pygame Zero update function
                 if player.lives > 0:
                     player.status = 0
                     lasers = []
-                    if len(aliens) == 0:
+                    if boos.y >= 500 or aliens.y >= 500:
                         level += 1
                         boss.active = False
                         initAliens()
@@ -201,7 +201,7 @@ def updateLasers():
         if lasers[l].type == 0:
             lasers[l].y += 2
             checkLaserHit(l)
-            if lasers[l].y > 600:
+            if lasers[l].y > 517:
                 lasers[l].status = 1
         if lasers[l].type == 1:
             lasers[l].y -= 5
@@ -309,7 +309,7 @@ def updateAliens():
 
 
 def updateBoss():
-    global boss, level, player, lasers
+    global boss, level, player, lasers,aliens
     if boss.active:
         boss.y += (0.3*level)
         if boss.direction == 0:
@@ -321,9 +321,10 @@ def updateBoss():
         if boss.x > 700:
             boss.direction = 0
         if boss.y > 500:
+            len(aliens) == 0
             #sounds.explosion.play()
             #player.status = 1
-            #boss.active = False
+            #boss.active = False 
         if randint(0, 30) == 0:
             lasers.append(Actor("laser1", (boss.x, boss.y)))
             lasers[len(lasers)-1].status = 0
