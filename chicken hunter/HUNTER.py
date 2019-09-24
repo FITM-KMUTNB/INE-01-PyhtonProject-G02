@@ -161,15 +161,15 @@ def checkKeys():
     if keyboard.right:
         if player.x < 760:
             player.x += 5
-    if keyboard.space:
-        if player.laserActive == 1:
-            sounds.gun.play()
-            player.laserActive = 0
-            clock.schedule(makeLaserActive, 1.0)
-            lasers.append(Actor("laser2", (player.x, player.y-32)))
-            lasers[len(lasers)-1].status = 0
-            lasers[len(lasers)-1].type = 1
-            score -= 100
+    #if keyboard.space:
+        #if player.laserActive == 1:
+            #sounds.gun.play()
+            #player.laserActive = 0
+            #clock.schedule(makeLaserActive, 1.0)
+            #lasers.append(Actor("laser2", (player.x, player.y-32)))
+            #lasers[len(lasers)-1].status = 0
+            #lasers[len(lasers)-1].type = 1
+            #score -= 100
     
     if keyboard.up:
         if player.y > 40:
