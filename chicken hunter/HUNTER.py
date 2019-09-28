@@ -15,7 +15,7 @@ def draw():  # Pygame Zero draw function
     screen.blit('background', (0, 0)) 
     if gameStatus == 0:  # display the title page
         drawCentreText(
-            "DUMNBO HUNTER\n\n\n")#Type your name then\npress Enter to start")
+            "DUMNBO HUNTER\n\n\nType your name then\npress Enter to start")#Type your name then\npress Enter to start")
         screen.draw.text(player.name, center=(400, 500), owidth=0.5, ocolor=(
             139,69,19), color=(255,127,36), fontsize=50)
     if gameStatus == 1:  # playing the game
