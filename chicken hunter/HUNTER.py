@@ -25,7 +25,7 @@ def draw():  # Pygame Zero draw function
             boss.draw()
             #item1.draw()
         drawLasers()
-        drawAliens()
+        #drawAliens()
         #drawBases()
         screen.draw.text(str(score), topright=(780, 10), owidth=0.5, ocolor=(
             139,69,19), color=(255,127,36), fontsize=60)
@@ -36,6 +36,7 @@ def draw():  # Pygame Zero draw function
             if player.lives > 0:
                 drawCentreText("YOU TAKE A DAMAGE!\nPress Enter to re-spawn")
             else:
+                sounds.Failure.play()
                 drawCentreText("GAME OVER!\nPress Enter to restart")
         if boss.y >500:
             drawCentreText(
@@ -50,7 +51,7 @@ def drawCentreText(t):
 
 
 def update():  # Pygame Zero update function
-    global moveCounter, player, gameStatus, lasers, level, boss,aliens,updateBoss
+    global moveCounter, player, gameStatus, lasers, level, boss,aliens,updateBoss,score
     if gameStatus == 0:
         if keyboard.RETURN and player.name != "":
             gameStatus = 1
@@ -59,11 +60,11 @@ def update():  # Pygame Zero update function
             checkKeys()
             updateLasers()
             updateBoss()
-            if moveCounter == 0:
-                updateAliens()
-            moveCounter += 1
-            if moveCounter == moveDelay:
-                moveCounter = 0
+            #if moveCounter == 0:
+                #updateAliens()
+           # moveCounter += 1
+           # if moveCounter == moveDelay:
+            #    moveCounter = 0
             if player.status > 0:
                 player.status += 1
                 if player.status == 30:
@@ -73,7 +74,7 @@ def update():  # Pygame Zero update function
                 if player.lives > 0:
                     player.status = 0
                     lasers = []
-                    if boos.y >= 500 or aliens.y >= 500:
+                    if score >=2000:
                         level += 1
                         boss.active = False
                         initAliens()
@@ -277,35 +278,35 @@ def checkPlayerLaserHit(l):
                 score += 800 
 
 
-def updateAliens():
-    global moveSequence, lasers, moveDelay
-    movex = movey = 0
-    if moveSequence < 10 or moveSequence > 30:
-        movex = -15
-    if moveSequence == 10 or moveSequence == 30:
-        movey = 40 + (10*level)
-        moveDelay -= 0
-    if moveSequence > 10 and moveSequence < 30:
-        movex = 15
-    for a in range(len(aliens)):
-        animate(aliens[a], pos=(aliens[a].x + movex,
-                                aliens[a].y + movey), duration=0.5, tween='linear')
-        if randint(0, 1) == 0:
-            aliens[a].image = "alien1"
-        else:
-            aliens[a].image = "alien1b"
-            if randint(0, 5) == 0:
-                lasers.append(Actor("laser1", (aliens[a].x, aliens[a].y)))
-                lasers[len(lasers)-1].status = 0
-                lasers[len(lasers)-1].type = 0
-                sounds.laser.play()
+#def updateAliens():
+    #global moveSequence, lasers, moveDelay
+    #movex = movey = 0
+    #if moveSequence < 10 or moveSequence > 30:
+    #    movex = -15
+    #if moveSequence == 10 or moveSequence == 30:
+    #    movey = 40 + (10*level)
+    #    moveDelay -= 0
+    #if moveSequence > 10 and moveSequence < 30:
+    #    movex = 15
+    #for a in range(len(aliens)):
+    #    animate(aliens[a], pos=(aliens[a].x + movex,
+    #                            aliens[a].y + movey), duration=0.5, tween='linear')
+    #    if randint(0, 1) == 0:
+    #        aliens[a].image = "alien1"
+    #    else:
+    #        aliens[a].image = "alien1b"
+    #        if randint(0, 5) == 0:
+    #            lasers.append(Actor("laser1", (aliens[a].x, aliens[a].y)))
+     #           lasers[len(lasers)-1].status = 0
+     #           lasers[len(lasers)-1].type = 0
+    #            sounds.laser.play()
         #if aliens[a].y > 500 and player.status == 0:
             #sounds.explosion.play()
             #player.status = 1
             #player.lives = 1
-    moveSequence += 1
-    if moveSequence == 40:
-        moveSequence = 0
+    #moveSequence += 1
+    #if moveSequence == 40:
+    #    moveSequence = 0
 
 
 def updateBoss():
