@@ -36,7 +36,6 @@ def draw():  # Pygame Zero draw function
             if player.lives > 0:
                 drawCentreText("YOU TAKE A DAMAGE!\nPress Enter to re-spawn")
             else:
-                sounds.Failure.play()
                 drawCentreText("GAME OVER!\nPress Enter to restart")
         if boss.y >500:
             drawCentreText(
@@ -312,7 +311,7 @@ def checkPlayerLaserHit(l):
 def updateBoss():
     global boss, level, player, lasers,aliens
     if boss.active:
-        boss.y += (0.3*level)
+        #boss.y += (0.3*level)
         if boss.direction == 0:
             boss.x -= (1 * level)
         else:
