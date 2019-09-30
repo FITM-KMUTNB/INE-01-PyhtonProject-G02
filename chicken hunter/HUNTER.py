@@ -9,9 +9,10 @@ boss = Actor("boss")
 #item1 = Actor("item1")
 gameStatus = 0
 highScore = []
+time=0
         
 def draw():  # Pygame Zero draw function
-    global updateBoss ,boss
+    global updateBoss ,boss ,time
     screen.blit('background', (0, 0)) 
     if gameStatus == 0:  # display the title page
         drawCentreText(
@@ -25,11 +26,13 @@ def draw():  # Pygame Zero draw function
             boss.draw()
             #item1.draw()
         drawLasers()
+        
         #drawAliens()
         #drawBases()
+        time()
         screen.draw.text(str(score), topright=(780, 10), owidth=0.5, ocolor=(
             139,69,19), color=(255,127,36), fontsize=60)
-        screen.draw.text("Stage " + str(level), midtop=(400, 10), owidth=0.5,
+        screen.draw.text("time: " + str(level), midtop=(400, 10), owidth=0.5,
                          ocolor=(255,127,36), color=(139,69,19), fontsize=50)
         #drawLives()
         if player.status >= 30:
@@ -37,9 +40,9 @@ def draw():  # Pygame Zero draw function
                 drawCentreText("YOU TAKE A DAMAGE!\nPress Enter to re-spawn")
             else:
                 drawCentreText("GAME OVER!\nPress Enter to restart")
-        if boss.y >500:
-            drawCentreText(
-                "Pass the Stage!\nPress Enter to go to the next Stage")
+        #if boss.y >500:
+            #drawCentreText(
+                #"Pass the Stage!\nPress Enter to go to the next Stage")
     if gameStatus == 2:  # game over show the leaderboard
         drawHighScore()
 
@@ -50,7 +53,7 @@ def drawCentreText(t):
 
 
 def update():  # Pygame Zero update function
-    global moveCounter, player, gameStatus, lasers, level, boss,aliens,updateBoss,score
+    global moveCounter, player, gameStatus, lasers, level, boss,aliens,updateBoss,score,laser1
     if gameStatus == 0:
         if keyboard.RETURN and player.name != "":
             gameStatus = 1
@@ -61,9 +64,9 @@ def update():  # Pygame Zero update function
             updateBoss()
             #if moveCounter == 0:
                 #updateAliens()
-           # moveCounter += 1
-           # if moveCounter == moveDelay:
-            #    moveCounter = 0
+            #moveCounter += 1
+            #if moveCounter == moveDelay:
+                #moveCounter = 0
             if player.status > 0:
                 player.status += 1
                 if player.status == 30:
@@ -159,13 +162,14 @@ def drawLasers():
         #item1[l].draw()
 
 def checkKeys():
-    global player, score 
+    global player, score ,item
     if keyboard.left:
         if player.x > 40:
             player.x -= 5
     if keyboard.right:
         if player.x < 760:
             player.x += 5
+
     #if keyboard.space:
         #if player.laserActive == 1:
             #sounds.gun.play()
@@ -203,6 +207,13 @@ def updateLasers():
             checkLaserHit(l)
             if lasers[l].y > 517:
                 lasers[l].status = 1
+    for l in range(len(lasers)):
+        if lasers[l].type == 0:
+            lasers[l].y += 2
+            checkLaserHit(l)
+            if lasers[l].y > 517:
+                lasers[l].status = 1
+
         if lasers[l].type == 1:
             lasers[l].y -= 5
             checkPlayerLaserHit(l)
@@ -221,16 +232,14 @@ def listCleanup(l):
 
 
 def checkLaserHit(l):
-    global player , level ,score ,item1
+    global player , level ,score 
     if player.collidepoint((lasers[l].x, lasers[l].y)):
-        if level == 1:
-            score += 100 
-        if level == 2:
-            score += 110 
-        if level == 3:
-            score += 120 
-        if level >= 4:
-            score += 130  
+        if randint(0, 2) == 0:
+            score += 200
+        if randint(0, 30) == 0:
+            score -= 200
+
+
     #elif player.collidepoint((item[l].x, item[l].y)):   
         #if level == 1:
         #    score += 120 
@@ -277,29 +286,28 @@ def checkPlayerLaserHit(l):
                 score += 800 
 
 
-#def updateAliens():
-    #global moveSequence, lasers, moveDelay
-    #movex = movey = 0
-    #if moveSequence < 10 or moveSequence > 30:
-    #    movex = -15
-    #if moveSequence == 10 or moveSequence == 30:
-    #    movey = 40 + (10*level)
-    #    moveDelay -= 0
-    #if moveSequence > 10 and moveSequence < 30:
-    #    movex = 15
-    #for a in range(len(aliens)):
-    #    animate(aliens[a], pos=(aliens[a].x + movex,
-    #                            aliens[a].y + movey), duration=0.5, tween='linear')
-    #    if randint(0, 1) == 0:
-    #        aliens[a].image = "alien1"
-    #    else:
-    #        aliens[a].image = "alien1b"
-    #        if randint(0, 5) == 0:
-    #            lasers.append(Actor("laser1", (aliens[a].x, aliens[a].y)))
-     #           lasers[len(lasers)-1].status = 0
-     #           lasers[len(lasers)-1].type = 0
-    #            sounds.laser.play()
-        #if aliens[a].y > 500 and player.status == 0:
+def updateAliens():
+    global moveSequence, lasers, moveDelay
+    movex = movey = 0
+    if moveSequence < 10 or moveSequence > 30:
+        movex = -15
+    if moveSequence == 10 or moveSequence == 30:
+        movey = 40 + (10*level)
+        moveDelay -= 0
+    if moveSequence > 10 and moveSequence < 30:
+        movex = 15
+    for a in range(len(aliens)):
+        animate(aliens[a], pos=(aliens[a].x + movex,
+                                aliens[a].y + movey), duration=0.5, tween='linear')
+        if randint(0, 1) == 0:
+            aliens[a].image = "alien1"
+        else:
+            aliens[a].image = "alien1b"
+            if randint(0, 5) == 0:
+                lasers.append(Actor("laser1", (aliens[a].x, aliens[a].y)))
+                lasers[len(lasers)-1].status = 0
+                lasers[len(lasers)-1].type = 0
+    #if aliens[a].y > 500 and player.status == 0:
             #sounds.explosion.play()
             #player.status = 1
             #player.lives = 1
@@ -309,7 +317,7 @@ def checkPlayerLaserHit(l):
 
 
 def updateBoss():
-    global boss, level, player, lasers,aliens
+    global boss, level, player, lasers,aliens,lasers1
     if boss.active:
         #boss.y += (0.3*level)
         if boss.direction == 0:
@@ -327,6 +335,10 @@ def updateBoss():
             #boss.active = False 
         if randint(0, 30) == 0:
             lasers.append(Actor("laser1", (boss.x, boss.y)))
+            lasers[len(lasers)-1].status = 0
+            lasers[len(lasers)-1].type = 0
+        if randint(0, 90) == 0:
+            lasers.append(Actor("laser1.1", (boss.x, boss.y)))
             lasers[len(lasers)-1].status = 0
             lasers[len(lasers)-1].type = 0
         #if randint(0, 30) == 0:
@@ -403,6 +415,9 @@ def collideLaser(self, other):
             #item[len(item)-1].type = 0
 
 
+def time():
+    for time in range (120):
+        pass
 
 
 
