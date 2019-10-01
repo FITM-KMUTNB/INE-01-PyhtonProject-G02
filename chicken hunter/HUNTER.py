@@ -55,7 +55,7 @@ def draw():
 
 def drawCentreText(t):
     screen.draw.text(t, center=(400, 300), owidth=0.5, ocolor=(
-        	255,165,0), color=(	139,69,0), fontsize=50,)
+            139,69,19), color=(255,127,36), fontsize=50,)
 
 
 def update():  
@@ -189,7 +189,6 @@ def updateLasers():
     lasers = listCleanup(lasers)
     aliens = listCleanup(aliens)
 
-
 def listCleanup(l):
     newList = []
     for i in range(len(l)):
@@ -197,14 +196,9 @@ def listCleanup(l):
             newList.append(l[i])
     return newList
 
-
 def checkLaserHit(l):
     global player , level ,score 
     player.status = 1
-    
-    
-  
-
 
 def checkPlayerLaserHit(l):
     global score, boss
@@ -266,6 +260,10 @@ def spawn():
             goitem = False
         if item.y > 600:
             gameStatus=2
+            readHighScore()
+            writeHighScore()
+            drawHighScore()
+            goitem = False
     else:
         if randint(0,1)== 0:
             goitem = True
@@ -277,6 +275,8 @@ def spawn():
         if item_collected1:
             place_item()
             score += 200
+            goitem3 = False
+        if item1.y > 600:
             goitem3 = False
     else:
         if randint(0,20)== 0:
@@ -290,6 +290,8 @@ def spawn():
             place_item()
             score += 100
             goitem4 = False
+        if item2.y > 600:
+            goitem4 = False
     else:
         if randint(0,25)== 0:
             goitem4 = True
@@ -301,6 +303,8 @@ def spawn():
         if item_collected3:
             place_item()
             score += 500
+            goitem5 = False
+        if item3.y > 600:
             goitem5 = False
     else:
         if randint(0,30)== 0:
@@ -329,8 +333,11 @@ def spawnitem2():
             place_item()
             gameStatus=2
             goitem2 = False
+            readHighScore()
+            writeHighScore()
+            drawHighScore()
         if itemdbuff.y > 600:
-            gameStatus==2
+            goitem2 = False
     else:
         if randint(0,50)== 0:
             goitem2 = True
