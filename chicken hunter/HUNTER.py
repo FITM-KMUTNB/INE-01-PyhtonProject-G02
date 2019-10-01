@@ -46,10 +46,8 @@ def draw():
         item4.draw()
         screen.draw.text(str(score), topright=(780, 10), owidth=0.5, ocolor=(
             139,69,19), color=(255,127,36), fontsize=60)
-        if player.status >= 30:
-            if player.lives > 0:
-                drawCentreText("YOU TAKE A DAMAGE!\nPress Enter to re-spawn")
-            else:  
+        if player.status >= 30:   
+            if gameStatus == 2:  
                 drawCentreText("GAME OVER!\nPress Enter to restart")
     if gameStatus == 2:
         drawHighScore()
@@ -257,19 +255,17 @@ def collideLaser(self, other):
     )
 
 
-
-
 def spawn():
     global item,goitem,score,item1,goitem3,item2,goitem4,item3,goitem5,item4,goitem6,gameStatus
     if goitem == True:
         item.y += 2
         item_collected = player.colliderect(item)
-        if item.y >= 500:
-            gameStatus== 2
         if item_collected:
             place_item()
-            score += 500
+            score += 50
             goitem = False
+        if item.y > 600:
+            gameStatus=2
     else:
         if randint(0,1)== 0:
             goitem = True
@@ -277,8 +273,8 @@ def spawn():
             item.y = 40
     if goitem3 == True:
         item1.y += 2
-        item_collected = player.colliderect(item1)
-        if item_collected:
+        item_collected1 = player.colliderect(item1)
+        if item_collected1:
             place_item()
             score += 200
             goitem3 = False
@@ -289,8 +285,8 @@ def spawn():
             item1.y = 40
     if goitem4 == True:
         item2.y += 2
-        item_collected = player.colliderect(item2)
-        if item_collected:
+        item_collected2 = player.colliderect(item2)
+        if item_collected2:
             place_item()
             score += 100
             goitem4 = False
@@ -301,8 +297,8 @@ def spawn():
             item2.y = 40
     if goitem5 == True:
         item3.y += 2
-        item_collected = player.colliderect(item3)
-        if item_collected:
+        item_collected3 = player.colliderect(item3)
+        if item_collected3:
             place_item()
             score += 500
             goitem5 = False
@@ -313,8 +309,8 @@ def spawn():
             item3.y = 40
     if goitem6 == True:
         item4.y += 2
-        item_collected = player.colliderect(item4)
-        if item_collected:
+        item_collected4 = player.colliderect(item4)
+        if item_collected4:
             place_item()
             score += 1000
             goitem6 = False
@@ -328,13 +324,12 @@ def spawnitem2():
     global itemdbuff,goitem2,score,gameStatus
     if goitem2 == True:
         itemdbuff.y += 6
-        item_collected = player.colliderect(itemdbuff)
-        if item_collected:
-            place_item2()
-            gameStatus==2
+        item_collected5 = player.colliderect(itemdbuff)
+        if item_collected5:
+            place_item()
+            gameStatus=2
             goitem2 = False
         if itemdbuff.y > 600:
-            goitem2 = False
             gameStatus==2
     else:
         if randint(0,50)== 0:
@@ -343,16 +338,14 @@ def spawnitem2():
             itemdbuff.y = 40
 
 def place_item():
-    global item,a,power_up,count
-    a = randint(1,2)
+    global item
     item.x = randint(40,760)
-    item.y = -550
+    item.y = -600
     
-  
 def place_item2():
-    global itemdbuff,a,power_up
+    global itemdbuff
     itemdbuff.x = randint(40,760)
-    itemdbuff.y = -5000
+    itemdbuff.y = -600
 
 
 
